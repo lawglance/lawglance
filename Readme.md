@@ -1,7 +1,7 @@
-# Niyam SahaAI: The Indian Lawyer AI Assistant
+# LawGlance: An AI Lawyer Assistant
 ## *Law-i with AI*
 
-**Niyam SahaAI** is an open-source legal assistant based on **Retriever-Augmented Generation (RAG)** and Indian laws. This project aims to make legal assistance more accessible to the public by providing AI-driven legal guidance on Indian law.
+**LawGlance** is an open-source legal assistant based on **Retriever-Augmented Generation (RAG)** and Indian laws. This project aims to make legal assistance more accessible to the public by providing AI-driven legal guidance on Indian law.
 
 This project is initiated and implemented with guidance and support from mentors at [Data Science Academy](https://datascience.one/) and professionals at [Curvelogics](https://www.curvelogics.com/).
 
