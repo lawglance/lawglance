@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Glance Chatbot</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        html, body {
+            height: 100%; /* Ensure the body takes full height */
+            margin: 0; /* Remove default margin */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #255D6C, #00AF9A);
+            color: white;
+            padding: 15px 20px;
+            height: 60px; /* Increased height to accommodate title and salutation */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo-title img {
+            margin-right: 15px;
+        }
+
+        .header h2 {
+            margin: 0;
+        }
+
+        .header h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .chat-box {
+            flex: 1; /* Allow chat-box to take the remaining height */
+            min-width: 320px; /* Minimum width for small screens */
+            max-width: 800px; /* Maximum width for larger screens */
+            width: 100%; /* Allow full width */
+            margin: 20px auto;
+            background-color: #FFFEF8;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border: 0px solid #1CB0B8;
+        }
+
+        .chat-log {
+            flex: 1;
+            overflow-y: auto;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border: 0px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .message {
+            position: relative;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: flex-start; /* Align items to the top */
+            padding: 8px;
+            max-width: 80%;
+        }
+
+        .message-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            align-self: flex-start; /* Align icon at the top */
+        }
+
+        .user-message {
+            background-color: #e2e6ea;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .assistant-message {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        .input-area {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        #chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #send-btn {
+            background-color: #255D6C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        #send-btn:hover {
+            background-color: #178178;
+        }
+
+        .footer {
+            background-color: #255D6C; /* Set the footer background color */
+            color: white; /* Footer text color */
+            text-align: center;
+            padding: 10px 0; /* Reduce padding to control inner space */
+            height: 40px; /* Reduced footer height */
+            width: 100%; /* Full width of the page */
+            font-family: 'Segoe UI', sans-serif; /* Font style for footer */
+            font-size: 14px; /* Smaller font for a more compact footer */
+            line-height: 1; /* Space between footer lines */
+        }
+
+        .footer a {
+            color: #00AF9A; /* Link color */
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline; /* Link hover effect */
+        }
+        .inline-paragraph {
+        display: inline; /* or use inline-block for more control over spacing */
+        margin-right: 10px; /* Adjust spacing between the paragraphs */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-logo-title">
+            <img src="{% static 'images/logo.svg' %}" alt="Logo" style="height: 60px;">
+            <div>
+                <h2>LawGlance</h2> <!-- Title next to logo -->
+                <h4>An AI Legal Assistant</h4> <!-- Salutation under title -->
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#">Home</a> <!-- Home links to the current page -->
+            <a href="https://www.sci.gov.in/" target="_blank">Supreme Court</a> <!-- External link to the Supreme Court website -->
+        </div>
+    </div>
+
+    <div class="chat-box">
+        <ul id="chat-log" class="chat-log"></ul>
+        <div class="input-area">
+            <input type="text" id="chat-input" placeholder="Have a legal question?" />
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+    <p class="inline-paragraph">For any inquiries, feel free to <a href="mailto:contact@niyamsahaai.com">Contact Us</a>.</p>
+    <p class="inline-paragraph">View the project on <a href="https://github.com/niyam-sahaai/niyam-sahaai" target="_blank">GitHub</a>.</p>
+    <p><strong>Disclaimer:</strong> This is a project at its trial phase for lawyers and officials and common people. If you are not a legal person please feel free to take legal advice from a qualified lawyer.</p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#send-btn").click(function() {
+                sendMessage();
+            });
+
+            $("#chat-input").keypress(function(e) {
+                if (e.which == 13) {
+                    sendMessage();
+                }
+            });
+
+            function sendMessage() {
+                let userInput = $("#chat-input").val();
+                if (userInput) {
+                    $("#chat-log").append(`
+                        <div class="message user-message">
+                            <img src="{% static 'images/user.png' %}" alt="User icon" class="message-icon">
+                            <div class="user-content">${userInput}</div>
+                        </div>
+                    `);
+                    $("#chat-input").val('');
+
+                    $.ajax({
+                        url: "{% url 'chatbot' %}",
+                        type: "POST",
+                        data: {
+                            'message': userInput,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function(response) {
+                            let assistantMessage = $(`
+                                <div class="message assistant-message">
+                                   <img src="{% static 'images/ai.png' %}" alt="AI icon" class="message-icon">
+                                    <div class="assistant-content"></div>
+                                </div>`
+                            );
+                            $("#chat-log").append(assistantMessage);
+                            $("#chat-log").scrollTop($("#chat-log")[0].scrollHeight);
+                            simulateTyping(response.response, assistantMessage);
+                        }
+                    });
+                }
+            }
+
+            function simulateTyping(text, messageContainer) {
+                let words = text.split(' ');
+                let index = 0;
+                let typingDelay = 15;
+
+                function typeWord() {
+                    if (index < words.length) {
+                        messageContainer.find('.assistant-content').append(words[index] + ' ');
+                        index++;
+                        setTimeout(typeWord, typingDelay);
+                    }
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                }
+
+                typeWord();
+            }
+        });
+    </script>
+</body>
+</html>
