@@ -17,16 +17,16 @@ This project was started ad [Niyam SahaAI](https://github.com/niyam-sahaai/niyam
 ## Video Tutorial
 [![Niyam SahaAI Tutorial](https://img.youtube.com/vi/sWpLEApQtvE/0.jpg)](https://www.youtube.com/watch?v=sWpLEApQtvE "Niyam SahaAI Tutorial")
 
-## How to Use
+## How to Use-For Developers
 
-To get started with **Niyam SahaAI**, follow these steps:
+To get started with **LawGlance**, follow these steps:
 1. Open the Command Line Interface and run the following commmand
 ```bash
-git clone https://github.com/niyam-sahaai/niyam-sahaai.git
+git clone https://github.com/lawglance/lawglance.git
 ```
 2. Change the directory to the respected folder
 ```bash
-cd niyam-sahaai
+cd lawglance
 ```
 3. Use the following command to install necessary packages
 ```bash
@@ -54,8 +54,8 @@ python manage.py runserver
 
 ## Planned Future Developments
 
-1. **Develop Niyam Saha-AI into a fully functional service with a user-friendly frontend**
-2. **Expand Niyam Saha-AI to support legal systems in more countries like Canada**
+1. **Develop LawGlance into a fully functional service with a user-friendly frontend**
+2. **Expand LawGlance to support legal systems in more countries like Canada**
 3. **Broader Data Sources**  
    - Supreme Court Judgments  
    - Women-Centric Laws  
