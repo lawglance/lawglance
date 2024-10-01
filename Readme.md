@@ -12,6 +12,8 @@ This project is initiated and implemented with guidance and support from mentors
 3. **The Bharatiya Nagarik Suraksha Sanhita, 2023**
 4. **The Bharatiya Sakshya Adhiniyam, 2023**
 
+This project was started ad [Niyam SahaAI](https://github.com/niyam-sahaai/niyam-sahaai) and with further developments we have decided to host this as a website.
+
 ## Video Tutorial
 [![Niyam SahaAI Tutorial](https://img.youtube.com/vi/sWpLEApQtvE/0.jpg)](https://www.youtube.com/watch?v=sWpLEApQtvE "Niyam SahaAI Tutorial")
 
