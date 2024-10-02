@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-mzu_hv*iem+i^dvpm52-_2f1tyk68qvm3qo0-76(4q84_ek0@o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["lawglance.com", "172.235.60.99"]
 # niyam_saha_ai/settings.py
 
 INSTALLED_APPS = [
@@ -123,10 +123,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+    os.path.join(BASE_DIR, 'static'),]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
