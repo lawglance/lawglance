@@ -80,13 +80,13 @@ def chatbot(request):
                 + "\n\nSource:\n"
 
                 + "\n\n" + ", ".join([f"{key}: {value}" for key, value in metadata[0].items()])
-                + "\n\nPlease provide a very concise answer in a simple language considering the above documents only and show the source.also in a concise way"
+                + "\n\nPlease provide a very concise answer in a simple english language considering the above documents only and show the source.also in a concise way"
                   "If the answer is not found, provide ```Hello, Please ask a relevant legal question.```."
         )
 
         # Messages sent to OpenAI LLM
         messages = [
-            SystemMessage(content="""You are a helpful legal assistant who answers legal questions in English language.If you are provided with
+            SystemMessage(content="""You are a helpful legal assistant who answers legal english questions in simple English language and ensure answer is not offensive.If you are provided with
                 a question outside legal context reply ```Hello, Please ask a relevant legal question```
                 and it is important to answer all questions based on relevant questions in English language
                 whenever there is answers from greeting words just don't provide source

@@ -2,6 +2,14 @@
 {% load static %}
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DJ36RVJTM"></script>
+    <script>
+  	window.dataLayer = window.dataLayer || [];
+  	function gtag(){dataLayer.push(arguments);}
+  	gtag('js', new Date());
+	gtag('config', 'G-2DJ36RVJTM');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Law Glance Chatbot</title>
@@ -169,6 +177,37 @@
         display: inline; /* or use inline-block for more control over spacing */
         margin-right: 10px; /* Adjust spacing between the paragraphs */
         }
+	@media (max-width:600px){
+	.header{
+		flex-direction:column;
+		align-items: flex-start;
+		height:auto;
+		padding:10 px;
+		}
+	.nav-links{
+	display:none;		
+}
+	.chat-box{
+		width : 90%;
+		margin:10px;
+		padding:15px;
+	}
+	#chat-input{
+		font-size:14px;
+	}
+	send-btn{
+		font-size:14px;
+	}
+	.footer{
+	font-size:12px;
+	height: auto;
+	padding:5px;
+	}
+	.inline-paragraph{
+	display:block;
+	margin-bottom:5px;
+	}
+}}
 
     </style>
 </head>
@@ -197,8 +236,8 @@
 
     <!-- Footer Section -->
     <div class="footer">
-    <p class="inline-paragraph">For any inquiries, feel free to <a href="mailto:contact@niyamsahaai.com">Contact Us</a>.</p>
-    <p class="inline-paragraph">View the project on <a href="https://github.com/niyam-sahaai/niyam-sahaai" target="_blank">GitHub</a>.</p>
+    <p class="inline-paragraph">For any inquiries, feel free to <a href="mailto:info.lawglance@gmail.com">Contact Us</a>.</p>
+    <p class="inline-paragraph">View the project on <a href="https://github.com/lawglance/lawglance" target="_blank">GitHub</a>.</p>
     <p><strong>Disclaimer:</strong> This is a project at its trial phase for lawyers and officials and common people. If you are not a legal person please feel free to take legal advice from a qualified lawyer.</p>
     </div>
 
