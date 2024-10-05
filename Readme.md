@@ -1,4 +1,4 @@
-# ⚖️ **LawGlance: Your AI-Powered Legal Assistant**
+# ⚖️ **LawGlance: An AI Legal Assistant**
 
 ### *Bridging the Gap Between People and Legal Access* 🌍
 
