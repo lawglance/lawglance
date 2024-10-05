@@ -13,7 +13,7 @@ from langchain_chroma import Chroma
 # Load environment variables
 load_dotenv()
 
-# Initialize OpenAI and Chroma
+# Initialize OpenAI(LLM) and Chroma(vector db)
 openai_api_key = os.getenv('OPENAI_API_KEY')
 llm = OpenAI(temperature=0, openai_api_key=openai_api_key, max_tokens=1200)
 embeddings = OpenAIEmbeddings()
