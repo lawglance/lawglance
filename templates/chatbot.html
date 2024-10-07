@@ -97,27 +97,31 @@
             padding: 20px;
         }
 
-        .message {
+         .message {
             position: relative;
             margin-bottom: 10px;
             border-radius: 5px;
             display: flex;
-            align-items: flex-start; /* Align items to the top */
+            align-items: flex-start; /* Ensure messages are aligned at the top */
             padding: 8px;
             max-width: 80%;
+            word-wrap: break-word; /* Wrap long words */
+            white-space: normal;   /* Ensure text wraps to new lines */
         }
 
         .message-icon {
             width: 24px;
             height: 24px;
             margin-right: 10px;
-            align-self: flex-start; /* Align icon at the top */
+            flex-shrink: 0; /* Prevent the icon from shrinking */
         }
 
-        .user-message {
+         .user-message {
             background-color: #e2e6ea;
             margin-left: auto;
             text-align: right;
+            word-wrap: break-word;
+            white-space: normal; /* Ensure text wraps to the next line */
         }
 
         .assistant-message {
@@ -125,6 +129,17 @@
             color: #0c5460;
             margin-right: auto;
             text-align: left;
+            word-wrap: break-word;
+            white-space: normal; /* Ensure text wraps to the next line */
+        }
+
+
+        .user-content, .assistant-content {
+            max-width: 100%; /* Ensure the text doesn't overflow */
+            word-wrap: break-word; /* Wrap long words */
+            white-space: normal; /* Ensure long text wraps onto new lines */
+            overflow-wrap: anywhere; /* Ensure it breaks long strings anywhere */
+            padding: 5px; /* Add some padding for better appearance */
         }
 
         .input-area {
@@ -185,7 +200,7 @@
 		padding:10 px;
 		}
 	.nav-links{
-	display:none;		
+	display:none;
 }
 	.chat-box{
 		width : 90%;

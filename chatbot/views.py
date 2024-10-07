@@ -24,7 +24,7 @@ load_dotenv()
 
 # Initialize OpenAI(LLM) and Chroma(vector db)
 openai_api_key = os.getenv('OPENAI_API_KEY')
-llm = OpenAI(temperature=0.9, openai_api_key=openai_api_key, max_tokens=1200)
+llm = OpenAI(temperature=0.1, openai_api_key=openai_api_key, max_tokens=1200)
 embeddings = OpenAIEmbeddings()
 vector_store = Chroma(persist_directory="chroma_db_legal_bot_part1", embedding_function=embeddings)
 retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 10})
@@ -70,9 +70,9 @@ def chatbot(request):
 
         response = rag_chain.invoke({"input": query})
         sources = {doc.metadata['source'] for doc in response['context']}
-        src = "\n".join([f"Source: {source}" for source in sources])
+        src = "<br>".join([f"Source {i+1}: {source}" for i,source in enumerate(sources)])
         res = response["answer"].replace("\n", "").capitalize()
-        result = res + "\n\n" + src
+        result = res + '<br><br>' + src
 
         # Create the final response
         final_response = f"AI Law Assistant: {result}"
@@ -83,25 +83,25 @@ def chatbot(request):
         return JsonResponse({"response": final_response})
 
     # Check if the session is ending (optional, depends on your use case)
-    if 'end_session' in request.GET:
-        end_time = time.time()
-        duration = end_time - request.session['start_time']
+    # if 'end_session' in request.GET:
+    #     end_time = time.time()
+    #     duration = end_time - request.session['start_time']
+    #
+    #     # Create the session data to log
+    #     session_data = {
+    #         "session_start": str(datetime.fromtimestamp(request.session['start_time'])),
+    #         "session_end": str(datetime.fromtimestamp(end_time)),
+    #         "duration_seconds": round(duration),
+    #         "query_count": request.session['query_count'],
+    #         "ip_address": request.session['ip_address']
+    #     }
 
-        # Create the session data to log
-        session_data = {
-            "session_start": str(datetime.fromtimestamp(request.session['start_time'])),
-            "session_end": str(datetime.fromtimestamp(end_time)),
-            "duration_seconds": round(duration),
-            "query_count": request.session['query_count'],
-            "ip_address": request.session['ip_address']
-        }
-
-        # Log the session data to a JSON file
-        log_session_data(session_data)
+        # # Log the session data to a JSON file
+        # log_session_data(session_data)
 
         # Clear the session after logging
-        request.session.flush()
-        return JsonResponse({"message": "Session ended and logged."})
+        # request.session.flush()
+        # return JsonResponse({"message": "Session ended and logged."})
 
     # If it's a GET request, render the chat interface with the chat history
     return render(request, 'chatbot.html', {'messages': request.session['messages']})

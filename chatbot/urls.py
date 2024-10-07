@@ -4,3 +4,4 @@ from .views import chatbot
 urlpatterns = [
     path('', chatbot, name='chatbot'),
 ]
+

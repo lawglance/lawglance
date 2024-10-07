@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-mzu_hv*iem+i^dvpm52-_2f1tyk68qvm3qo0-76(4q84_ek0@o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["lawglance.com", "172.235.60.99","127.0.0.1"]
+ALLOWED_HOSTS = ["lawglance.com", "172.235.60.99"]
 # niyam_saha_ai/settings.py
 
 INSTALLED_APPS = [
