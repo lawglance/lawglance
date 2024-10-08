@@ -60,7 +60,7 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
 
 5. **Run the Application** 🚀
     ```bash
-    streamlit run main.py
+    streamlit run app.py
     ```
 
 6. **Access the App** 🌐  
