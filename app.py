@@ -14,7 +14,7 @@ import streamlit as st
 import random
 import time
 
-st.title("Niyam Saha-AI")
+st.title("LawGlance")
 load_dotenv()
 
 openai_api_key = os.getenv('OPENAI_API_KEY')
