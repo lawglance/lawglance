@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  lawglance-app:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./chroma_db_legal_bot_part1:/app/chroma_db_legal_bot_part1
+    restart: always
