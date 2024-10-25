@@ -51,6 +51,10 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
     ```bash
     pip install -r requirements.txt
     ```
+    **For users having docker installed(switch to masterdocker branch)**
+    ```bash
+    docker-compose up
+    ```
 
 4. **Set Your OpenAI API Key** 🔑
     - Open `.env` and add your OpenAI API key:
