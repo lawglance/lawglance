@@ -51,7 +51,7 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
     ```bash
     pip install -r requirements.txt
     ```
-    **For users having docker installed(switch to masterdocker branch)**
+    **For users having docker installed**
     ```bash
     docker-compose up
     ```
