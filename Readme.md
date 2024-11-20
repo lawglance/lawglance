@@ -20,6 +20,10 @@ LawGlance currently supports the following laws, with plans to expand internatio
 - 📜 **The Bharatiya Nyaya Sanhita, 2023**
 - 🚨 **The Bharatiya Nagarik Suraksha Sanhita, 2023**
 - 🧾 **The Bharatiya Sakshya Adhiniyam, 2023**
+- 📦 **The Consumer Protection Act, 2019**
+- 🧭 **The Motor Vehicles Act, 1988**
+- 💻 **Information Technology Act, 2000**
+
 
 Originally launched as [Niyam SahaAI](https://github.com/niyam-sahaai/niyam-sahaai), **LawGlance** aims to cover legal systems from different countries in the near future.
 
