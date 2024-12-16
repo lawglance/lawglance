@@ -36,13 +36,15 @@ Curious how **LawGlance** works? Watch this detailed tutorial!
 [![Niyam SahaAI Tutorial](https://img.youtube.com/vi/sWpLEApQtvE/0.jpg)](https://www.youtube.com/watch?v=sWpLEApQtvE "Niyam SahaAI Tutorial")
 
 <div>
-    <a href="https://www.loom.com/share/576b26dcd5fb4d74a3a9e1f8187851bc">
+    <a href="https://www.loom.com/embed/dcc6b14c653c4618829f46a9aa2ab68c?sid=a5a73b89-88a5-4bc2-a633-f97792f6441f">
       <p>LawGlance </p>
     </a>
-    <a href="https://www.loom.com/share/576b26dcd5fb4d74a3a9e1f8187851bc">
+    <a href=https://www.loom.com/embed/dcc6b14c653c4618829f46a9aa2ab68c?sid=a5a73b89-88a5-4bc2-a633-f97792f6441f">
       <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/576b26dcd5fb4d74a3a9e1f8187851bc-35587db59696dfef-full-play.gif">
     </a>
   </div>
+
+
 
 
 
