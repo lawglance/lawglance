@@ -13,6 +13,7 @@ class Lawglance:
     self.embeddings = embeddings
     self.vector_store = vector_store
   def __retriever(self):
+    """The function to define the properties of retriever"""
     retriever = self.vector_store.as_retriever(search_type="similarity_score_threshold",search_kwargs={"k": 10, "score_threshold":0.3})
     return retriever
   def llm_answer_generator(self,query):
