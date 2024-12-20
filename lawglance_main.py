@@ -6,7 +6,7 @@ from langchain_core.prompts import MessagesPlaceholder
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
-
+#This Class delas with working of Chatbot
 class Lawglance:
   def __init__(self,llm,embeddings,vector_store):
     self.llm = llm
