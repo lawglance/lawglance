@@ -12,4 +12,4 @@ langsmith==0.1.93
 openai==1.37.1
 PyMuPDF==1.24.9
 PyMuPDFb==1.24.9
-streamlit==1.36.0
+streamlit==1.37.0
