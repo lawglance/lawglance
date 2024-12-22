@@ -163,7 +163,7 @@ if prompt:
 
     # Generate answer from LLM
     query = prompt
-    result = law.llm_answer_generator(query)
+    result = law.conversational(query)
 
     # Assistant's response
     def response_generator(result):

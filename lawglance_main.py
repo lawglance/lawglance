@@ -6,16 +6,23 @@ from langchain_core.prompts import MessagesPlaceholder
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
+
 #This Class delas with working of Chatbot
-class Lawglance:
+
+class Lawglance: 
+  
+  store = {}
+
   def __init__(self,llm,embeddings,vector_store):
     self.llm = llm
     self.embeddings = embeddings
     self.vector_store = vector_store
+
   def __retriever(self):
     """The function to define the properties of retriever"""
     retriever = self.vector_store.as_retriever(search_type="similarity_score_threshold",search_kwargs={"k": 10, "score_threshold":0.3})
     return retriever
+  
   def llm_answer_generator(self,query):
     llm = self.llm
     retriever = self.__retriever()
@@ -56,20 +63,22 @@ class Lawglance:
 
     question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
     rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
-    store = {}
+    return rag_chain
 
-    def get_session_history(session_id: str) -> BaseChatMessageHistory:
-        if session_id not in store:
-            store[session_id] = ChatMessageHistory()
-        return store[session_id]
-
+  def get_session_history(self,session_id: str) -> BaseChatMessageHistory:
+    if session_id not in Lawglance.store:
+        Lawglance.store[session_id] = ChatMessageHistory()
+    return Lawglance.store[session_id]
+  
+  def conversational(self,query):
+    rag_chain = self.llm_answer_generator(query)
+    get_session_history = self.get_session_history
     conversational_rag_chain = RunnableWithMessageHistory(
         rag_chain,
         get_session_history,
         input_messages_key="input",
         history_messages_key="chat_history",
-        output_messages_key="answer",)
-
+        output_messages_key="answer")
     response = conversational_rag_chain.invoke(
         {"input": query},
         config={
