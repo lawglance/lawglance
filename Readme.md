@@ -1,4 +1,8 @@
 # ⚖️ **LawGlance: Your AI-Powered Legal Assistant**
+[![GitHub stars](https://img.shields.io/github/stars/lawglance/lawglance?style=social)](https://github.com/lawglance/lawglance/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![Discord](https://img.shields.io/discord/1303749220842340412?color=7289DA&label=Discord&logo=discord&logoColor=white)](https://link.browser-use.com/discord)
 
 ### *Bridging the Gap Between People and Legal Access* 🌍
 
