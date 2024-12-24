@@ -5,7 +5,7 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)](https://opensource.org/license/apache-2-0)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 
-### *Bridging the Gap Between People and Legal Access* 🌍
+### *Bridging the Gap Between People and Legal Access*  🌍
 
 🌐 **Website:** [LawGlance](https://lawglance.com/)
 
