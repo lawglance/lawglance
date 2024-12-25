@@ -131,9 +131,16 @@ load_dotenv()
 
 # Load API key
 openai_api_key = os.getenv('OPENAI_API_KEY')
-llm = ChatOpenAI(temperature=0, openai_api_key=openai_api_key)
+#Defining the Language Model
+llm = ChatOpenAI(model  = 'gpt-4o-mini' ,temperature = 0.9, openai_api_key = openai_api_key)
+
+#Defining the Embeddings
 embeddings = OpenAIEmbeddings()
+
+#Defining the vector store
 vector_store = Chroma(persist_directory="chroma_db_legal_bot_part1", embedding_function=embeddings)
+
+#Creating the instance of the class Lawglance
 law = Lawglance(llm, embeddings, vector_store)
 
 # Initialize chat history
