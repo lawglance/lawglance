@@ -10,7 +10,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 #This Class delas with working of Chatbot
 
 class Lawglance: 
-  """This is the lawglance class which delas mainly with a conversational RAG
+  """This is the class which deals mainly with a conversational RAG
     It takes llm, embeddings and vector store as input to initialise.
 
     create an instance of it using law = LawGlance(llm,embeddings,vectorstore)
