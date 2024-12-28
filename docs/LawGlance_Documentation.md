@@ -1,6 +1,6 @@
 # Law Glance
  
-**Law Glance** is an AI-powered legal assistant designed to streamline access to Indian legal information. Built using Retriever-Augmented Generation (RAG), LawGlance leverages modern AI and NLP techniques to provide concise, relevant answers to legal queries, aiming to make legal knowledge more accessible to everyone.
+**Law Glance** is an AI-powered legal assistant designed to streamline access to Indian legal information. Built using Retriever-Augmented Generation (RAG), Law Glance leverages modern AI and NLP techniques to provide concise, relevant answers to legal queries, aiming to make legal knowledge more accessible to everyone.
  
 ---
  
