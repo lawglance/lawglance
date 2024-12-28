@@ -1,4 +1,4 @@
-# LawGlance
+# Law Glance
  
 **Law Glance** is an AI-powered legal assistant designed to streamline access to Indian legal information. Built using Retriever-Augmented Generation (RAG), LawGlance leverages modern AI and NLP techniques to provide concise, relevant answers to legal queries, aiming to make legal knowledge more accessible to everyone.
  
@@ -21,7 +21,7 @@
  
 ## Overview
  
-LawGlance provides a free, open-source platform that simplifies legal research by retrieving and presenting legal information in an easy-to-understand manner. Currently focused on Indian laws, LawGlance enables users to get concise responses to complex legal queries using a combination of machine learning, natural language processing, and vector embeddings.
+Law Glance provides a free, open-source platform that simplifies legal research by retrieving and presenting legal information in an easy-to-understand manner. Currently focused on Indian laws, LawGlance enables users to get concise responses to complex legal queries using a combination of machine learning, natural language processing, and vector embeddings.
  
 The long-term goal is to expand LawGlance to cover international laws and make it a global legal AI assistant.
  
