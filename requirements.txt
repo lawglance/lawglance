@@ -9,7 +9,7 @@ langchain-text-splitters==0.2.2
 langchainhub==0.1.20
 langdetect==1.0.9
 langsmith==0.1.93
-openai==1.37.1
+openai
 PyMuPDF==1.24.9
 PyMuPDFb==1.24.9
 streamlit==1.37.0
