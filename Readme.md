@@ -9,7 +9,7 @@
 
 🌐 **Website:** [LawGlance](https://lawglance.com/)
 
-**LawGlance** is a free, open-source, people-centric initiative 💡 designed to make legal guidance accessible to everyone. Using **AI-powered Retriever-Augmented Generation (RAG)**, **LawGlance** delivers quick, accurate legal support tailored to your needs, whether you're seeking information as a layperson or a professional.
+**Law Glance** is a free, open-source, people-centric initiative 💡 designed to make legal guidance accessible to everyone. Using **AI-powered Retriever-Augmented Generation (RAG)**, **LawGlance** delivers quick, accurate legal support tailored to your needs, whether you're seeking information as a layperson or a professional.
 
 > 🛡️ **Mission:** “Justice should be accessible to everyone. LawGlance ensures that no one is left behind when it comes to legal knowledge.”
 
