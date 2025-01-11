@@ -97,7 +97,7 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
 
 ---
 
-## 🔧 **Tools & Technologies** 
+## 🔧 **Tools & Technologies**
 
 | 💡 **Technology**  | 🔍 **Description**                            |
 |--------------------|-----------------------------------------------|
