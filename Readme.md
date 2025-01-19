@@ -79,7 +79,7 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
     ```
 
 4. **Set Your OpenAI API Key** 🔑
-    - Open `.env` and add your OpenAI API key:
+    Open `.env` and add your OpenAI API key:
       ```bash
       OPENAI_API_KEY=your-api-key-here
       ```
