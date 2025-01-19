@@ -79,17 +79,18 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
     ```
 
 4. **Set Your OpenAI API Key** 🔑
-    Open `.env` and add your OpenAI API key:
+
+   Open `.env` and add your OpenAI API key:
       ```bash
       OPENAI_API_KEY=your-api-key-here
       ```
 
-5. **Run the Application** 🚀
+6. **Run the Application** 🚀
     ```bash
     streamlit run app.py
     ```
 
-6. **Access the App** 🌐  
+7. **Access the App** 🌐  
     Open your browser and visit:  
     ```bash
     http://192.168.29.56:8501
