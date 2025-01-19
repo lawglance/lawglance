@@ -109,7 +109,7 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
 
 ---
 
-## 🌟 **Future Roadmap** 
+## 🌟 **Future Roadmap**
 
 Exciting developments are planned for **LawGlance**! Here’s what’s coming next:
 
