@@ -9,7 +9,7 @@ from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from dotenv import load_dotenv
 from langchain.schema import HumanMessage
-
+#This page implements the streamlit UI
 # Set page configuration
 st.set_page_config(page_title="LawGlance", page_icon="logo/logo.png", layout="wide")
 
