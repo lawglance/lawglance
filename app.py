@@ -15,6 +15,7 @@ st.set_page_config(page_title="LawGlance", page_icon="logo/logo.png", layout="wi
 
 # Custom CSS for better UI
 def add_custom_css():
+    """Function for a beautiful streamlit UI"""
     custom_css = """
     <style>
         body {
