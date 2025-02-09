@@ -99,7 +99,7 @@ def add_custom_css():
     st.markdown(custom_css, unsafe_allow_html=True)
 
 add_custom_css()
-
+##Below Code implementation is tha main functioanlity in building the streamlit application
 # Title with Logo
 logo_path = "logo/logo.png"
 if os.path.exists(logo_path):
