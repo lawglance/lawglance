@@ -94,7 +94,7 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
 7. **Access the App** 🌐  
     Open your browser and visit:  
     ```bash
-    http://192.168.29.56:8501
+    http://127.0.0.1:8501
     ```
 
 ---
