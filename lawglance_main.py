@@ -70,13 +70,13 @@ class Lawglance:
 
 
     Current Legal Knowledge Domains :
-      🏛️ Indian Constitution
-      📜 Bharatiya Nyaya Sanhita, 2023 (BNS)
-      🚨 Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS)
-      🧾 Bharatiya Sakshya Adhiniyam, 2023 (BSA)
-      📦 Consumer Protection Act, 2019
-      🧭 Motor Vehicles Act, 1988
-      💻 Information Technology Act, 2000
+      Indian Constitution
+      Bharatiya Nyaya Sanhita, 2023 (BNS)
+      Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS)
+      Bharatiya Sakshya Adhiniyam, 2023 (BSA)
+      Consumer Protection Act, 2019
+      Motor Vehicles Act, 1988
+      Information Technology Act, 2000
 
 Question : {input}
 
