@@ -33,6 +33,7 @@ LawGlance currently supports the following laws, with plans to expand internatio
 - 🧭 **The Motor Vehicles Act, 1988**
 - 💻 **Information Technology Act, 2000**
 - 👧 **The Protection of Children from Sexual Offences Act (POCSO), 2012**
+- **The Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013**
 
 
 Originally launched as [Niyam SahaAI](https://github.com/niyam-sahaai/niyam-sahaai), **LawGlance** aims to cover legal systems from different countries in the near future.
