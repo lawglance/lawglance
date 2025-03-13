@@ -77,6 +77,8 @@ class Lawglance:
       Consumer Protection Act, 2019
       Motor Vehicles Act, 1988
       Information Technology Act, 2000
+      The Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013
+      The Protection of Children from Sexual Offences Act, 2012
 
 Question : {input}
 
