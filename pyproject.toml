@@ -33,6 +33,20 @@ dependencies = [
     "streamlit==1.37.0",
 ]
 
+[project.optional-dependencies]
+rich = ["rich>=13.9.4"]
+cli = ["python-dotenv>=1.0.0"]
+
+dev-dependencies = [
+    "pyright>=1.1.391",
+    "pytest>=8.3.4",
+    "ruff>=0.8.5",
+    "trio>=0.26.2",
+    "pytest-flakefinder>=1.1.0",
+    "pytest-xdist>=3.6.1",
+    "pytest-examples>=0.0.14",
+]
+
 [tool.uv.sources]
 lawglance = { workspace = true }
 
