@@ -30,7 +30,6 @@ dependencies = [
     "openai>=1.66.3",
     "pymupdf==1.24.9",
     "pymupdfb==1.24.9",
-    "pytest>=8.3.5",
     "streamlit==1.37.0",
 ]
 
