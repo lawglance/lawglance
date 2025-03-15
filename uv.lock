@@ -414,6 +414,15 @@ wheels = [
 ]
 
 [[package]]
+name = "dependencies"
+version = "7.7.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7e/e2/495b2025b598ad9a35812a7622f9fb3d436cbdb42709868a0b8e28676951/dependencies-7.7.1.tar.gz", hash = "sha256:6fc79935f61ae33bf33ca0aa0cc612e9cad9a2bc05a34928becb4d9856725d1a", size = 9861 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d5/44/b0c3355045764617f72e0bd209a84ce45244fe25eb75bdb1248d784489c6/dependencies-7.7.1-py2.py3-none-any.whl", hash = "sha256:1064eca85da8090aaffb800a6e2bab344fb058e0ba02858571ec061612a3d8c1", size = 17550 },
+]
+
+[[package]]
 name = "deprecated"
 version = "1.2.18"
 source = { registry = "https://pypi.org/simple" }
@@ -1067,11 +1076,11 @@ wheels = [
 
 [[package]]
 name = "lawglance"
-version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "chroma-hnswlib" },
     { name = "chromadb" },
+    { name = "dependencies" },
     { name = "langchain" },
     { name = "langchain-chroma" },
     { name = "langchain-community" },
@@ -1091,6 +1100,7 @@ dependencies = [
 requires-dist = [
     { name = "chroma-hnswlib", specifier = "==0.7.6" },
     { name = "chromadb", specifier = "==0.5.11" },
+    { name = "dependencies", specifier = ">=7.7.1" },
     { name = "langchain", specifier = "==0.2.9" },
     { name = "langchain-chroma", specifier = "==0.1.4" },
     { name = "langchain-community", specifier = "==0.2.10" },
