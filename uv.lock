@@ -1145,6 +1145,7 @@ dependencies = [
     { name = "openai" },
     { name = "pymupdf" },
     { name = "pymupdfb" },
+    { name = "pytest" },
     { name = "streamlit" },
 ]
 
@@ -1183,6 +1184,7 @@ requires-dist = [
     { name = "pymupdf", specifier = "==1.24.9" },
     { name = "pymupdfb", specifier = "==1.24.9" },
     { name = "pyright", marker = "extra == 'dev-dependencies'", specifier = ">=1.1.391" },
+    { name = "pytest", specifier = ">=8.3.5" },
     { name = "pytest", marker = "extra == 'dev-dependencies'", specifier = ">=8.3.4" },
     { name = "pytest-examples", marker = "extra == 'dev-dependencies'", specifier = ">=0.0.14" },
     { name = "pytest-flakefinder", marker = "extra == 'dev-dependencies'", specifier = ">=1.1.0" },

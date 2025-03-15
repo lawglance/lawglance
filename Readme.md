@@ -85,16 +85,17 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
       ```
     Make sure to restart your terminal afterwards to ensure that the uv command gets picked up.
 
-3. **Set up Python environment** 📂
+3. **Install Dependencies** 📦
+    ```bash
+    uv pip install -r .\pyproject.toml
+    ```
+    
+
+4. **Set up Python environment** 📂
     ```bash
     # Create a virtual environment and activate it
     uv venv
     .venv\Scripts\activate
-    ```
-
-4. **Install Dependencies** 📦
-    ```bash
-    uv pip install -r .\pyproject.toml
     ```
 
 5. **Set Your OpenAI API Key** 🔑
