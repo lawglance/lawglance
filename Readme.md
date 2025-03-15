@@ -86,8 +86,9 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
 
 2. **set up our project** 📂
     ```bash
-    # Create a virtual environment
+    # Create a virtual environment and activate it
     uv venv
+    .venv\Scripts\activate
     ```
 
 3. **Install Dependencies** 📦
