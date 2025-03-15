@@ -1,12 +1,23 @@
 [project]
 name = "lawglance"
-version = "0.1.0"
-description = "Add your description here"
+dynamic = ["version"]
+authors = [{name = "https://lawglance.com/" }]
+maintainers = [
+    {name = "Sreejith G", email = "gsreejith828@gmail.com"},
+    {name = "Midhun M I", email = "midhunmi2011@gmail.com"},
+    {name = "Meenu Dev", email = "mee.dev03@gmail.com"},
+    {name = "Brijesh", email = "brijesh@curvelogics.com"},
+    {name = "Haritha C", email = "harithac.contactmail@gmail.com"},
+]
+description = "Your AI-Powered Legal Assistant"
 readme = "README.md"
 requires-python = ">=3.11"
+keywords = ["git", "law", "llm", "langchain", "langflow", "RAG"]
+license = { text = "MIT" }
 dependencies = [
     "chroma-hnswlib==0.7.6",
     "chromadb==0.5.11",
+    "dependencies>=7.7.1",
     "langchain==0.2.9",
     "langchain-chroma==0.1.4",
     "langchain-community==0.2.10",
@@ -24,3 +35,14 @@ dependencies = [
 
 [tool.uv.workspace]
 members = ["hello-world"]
+
+[tool.uv-dynamic-versioning]
+vcs = "git"
+style = "pep440"
+bump = true
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.uv.sources]
+lawglance = { workspace = true }
