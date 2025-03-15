@@ -33,16 +33,20 @@ dependencies = [
     "streamlit==1.37.0",
 ]
 
-[tool.uv.workspace]
-members = ["hello-world"]
+[tool.uv.sources]
+lawglance = { workspace = true }
+
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
 
 [tool.uv-dynamic-versioning]
 vcs = "git"
 style = "pep440"
 bump = true
 
-[tool.hatch.version]
-source = "uv-dynamic-versioning"
-
-[tool.uv.sources]
-lawglance = { workspace = true }
+[tool.hatch.build.targets.wheel]
+packages = ["./"]
