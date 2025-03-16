@@ -1,6 +1,7 @@
 [project]
 name = "lawglance"
-dynamic = ["version"]
+version = "0.1.0"
+description = "Your AI-Powered Legal Assistan"
 authors = [{name = "https://lawglance.com/" }]
 maintainers = [
     {name = "Sreejith G", email = "gsreejith828@gmail.com"},
@@ -9,15 +10,11 @@ maintainers = [
     {name = "Brijesh", email = "brijesh@curvelogics.com"},
     {name = "Haritha C", email = "harithac.contactmail@gmail.com"},
 ]
-description = "Your AI-Powered Legal Assistant"
 readme = "README.md"
 requires-python = ">=3.11"
-keywords = ["git", "law", "llm", "langchain", "langflow", "RAG"]
-license = { text = "MIT" }
 dependencies = [
     "chroma-hnswlib==0.7.6",
     "chromadb==0.5.11",
-    "dependencies>=7.7.1",
     "langchain==0.2.9",
     "langchain-chroma==0.1.4",
     "langchain-community==0.2.10",
@@ -33,34 +30,8 @@ dependencies = [
     "streamlit==1.37.0",
 ]
 
-[project.optional-dependencies]
-rich = ["rich>=13.9.4"]
-cli = ["python-dotenv>=1.0.0"]
-
-dev-dependencies = [
-    "pyright>=1.1.391",
-    "pytest>=8.3.4",
-    "ruff>=0.8.5",
-    "trio>=0.26.2",
-    "pytest-flakefinder>=1.1.0",
-    "pytest-xdist>=3.6.1",
-    "pytest-examples>=0.0.14",
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "ruff>=0.11.0",
 ]
-
-[tool.uv.sources]
-lawglance = { workspace = true }
-
-[build-system]
-requires = ["hatchling", "uv-dynamic-versioning"]
-build-backend = "hatchling.build"
-
-[tool.hatch.version]
-source = "uv-dynamic-versioning"
-
-[tool.uv-dynamic-versioning]
-vcs = "git"
-style = "pep440"
-bump = true
-
-[tool.hatch.build.targets.wheel]
-packages = ["./"]
