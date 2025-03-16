@@ -70,8 +70,9 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
     git clone https://github.com/lawglance/lawglance.git
     ```
 
-2. **Set up Python environment** 📂
-  First, let’s install uv and set up our Python project and environment
+2. **Install uv** 📂
+
+    First, let’s install uv and set up our Python project and environment
     MacOS/Linux:
       ``` bash 
       curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -84,15 +85,9 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
       ```
     Make sure to restart your terminal afterwards to ensure that the uv command gets picked up.
 
-2. **set up our project** 📂
-    ```bash
-    # Create a virtual environment
-    uv venv
-    ```
-
 3. **Install Dependencies** 📦
     ```bash
-    uv add dependencies
+    uv sync
     ```
 
 4. **Set Your OpenAI API Key** 🔑
@@ -102,12 +97,12 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
       OPENAI_API_KEY=your-api-key-here
       ```
 
-6. **Run the Application** 🚀
+5. **Run the Application** 🚀
     ```bash
-    streamlit run app.py
+    uv run streamlit run app.py
     ```
 
-7. **Access the App** 🌐  
+6. **Access the App** 🌐  
     Open your browser and visit:  
     ```bash
     http://127.0.0.1:8501

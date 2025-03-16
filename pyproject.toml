@@ -1,7 +1,15 @@
 [project]
 name = "lawglance"
 version = "0.1.0"
-description = "Add your description here"
+description = "Your AI-Powered Legal Assistan"
+authors = [{name = "https://lawglance.com/" }]
+maintainers = [
+    {name = "Sreejith G", email = "gsreejith828@gmail.com"},
+    {name = "Midhun M I", email = "midhunmi2011@gmail.com"},
+    {name = "Meenu Dev", email = "mee.dev03@gmail.com"},
+    {name = "Brijesh", email = "brijesh@curvelogics.com"},
+    {name = "Haritha C", email = "harithac.contactmail@gmail.com"},
+]
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -22,5 +30,8 @@ dependencies = [
     "streamlit==1.37.0",
 ]
 
-[tool.uv.workspace]
-members = ["hello-world"]
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "ruff>=0.11.0",
+]
