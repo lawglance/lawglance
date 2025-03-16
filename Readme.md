@@ -87,30 +87,22 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
 
 3. **Install Dependencies** 📦
     ```bash
-    uv pip install -r .\pyproject.toml
-    ```
-    
-
-4. **Set up Python environment** 📂
-    ```bash
-    # Create a virtual environment and activate it
-    uv venv
-    .venv\Scripts\activate
+    uv sync
     ```
 
-5. **Set Your OpenAI API Key** 🔑
+4. **Set Your OpenAI API Key** 🔑
 
    Open `.env` and add your OpenAI API key:
       ```bash
       OPENAI_API_KEY=your-api-key-here
       ```
 
-6. **Run the Application** 🚀
+5. **Run the Application** 🚀
     ```bash
-    streamlit run app.py
+    uv run streamlit run app.py
     ```
 
-7. **Access the App** 🌐  
+6. **Access the App** 🌐  
     Open your browser and visit:  
     ```bash
     http://127.0.0.1:8501
