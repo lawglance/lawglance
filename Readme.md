@@ -73,6 +73,7 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
 2. **Install uv** 📂
 
     First, let’s install uv and set up our Python project and environment
+    
     MacOS/Linux:
       ``` bash 
       curl -LsSf https://astral.sh/uv/install.sh | sh
