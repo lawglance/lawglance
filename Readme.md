@@ -44,7 +44,7 @@ Originally launched as [Niyam SahaAI](https://github.com/niyam-sahaai/niyam-saha
 
 Curious how **LawGlance** works? Watch this detailed tutorial!
 
-[![Niyam SahaAI Tutorial](https://img.youtube.com/vi/sWpLEApQtvE/0.jpg)](https://www.youtube.com/watch?v=sWpLEApQtvE "Niyam SahaAI Tutorial")
+[![Niyam SahaAI Tutorial](https://raw.githubusercontent.com/lawglance/lawglance/refs/heads/main/docs/Lawglance_youtube_video_thumbnail.png)](https://www.youtube.com/watch?v=sWpLEApQtvE "Niyam SahaAI Tutorial")
 
 <div>
     <a href="https://www.loom.com/embed/dcc6b14c653c4618829f46a9aa2ab68c?sid=a5a73b89-88a5-4bc2-a633-f97792f6441f">
