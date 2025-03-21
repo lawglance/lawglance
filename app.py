@@ -132,7 +132,9 @@ _Disclaimer_: This tool is in its pilot phase, and responses may not be 100% acc
 
 load_dotenv()
 
-thread_id = str(uuid.uuid4())
+#random thread id for session
+id = uuid.uuid4()
+thread_id = str(id)
 
 # Load API key
 openai_api_key = os.getenv('OPENAI_API_KEY')
