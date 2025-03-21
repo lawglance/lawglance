@@ -28,10 +28,11 @@ class Lawglance:
   """
   store = {}
 
-  def __init__(self,llm,embeddings,vector_store):
+  def __init__(self,llm,embeddings,vector_store,session_id):
     self.llm = llm
     self.embeddings = embeddings
     self.vector_store = vector_store
+    self.session_id = session_id
 
   def __retriever(self):
     """The function to define the properties of retriever"""
@@ -168,7 +169,7 @@ Question : {input}
     response = conversational_rag_chain.invoke(
         {"input": query},
         config={
-            "configurable": {"session_id": "abc123"}
+            "configurable": {"session_id": self.session_id}
         },
     )
     return(response['answer'])

@@ -9,6 +9,8 @@ from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from dotenv import load_dotenv
 from langchain.schema import HumanMessage
+import uuid
+
 #This page implements the streamlit UI
 # Set page configuration
 st.set_page_config(page_title="LawGlance", page_icon="logo/logo.png", layout="wide")
@@ -130,6 +132,8 @@ _Disclaimer_: This tool is in its pilot phase, and responses may not be 100% acc
 
 load_dotenv()
 
+thread_id = str(uuid.uuid4())
+
 # Load API key
 openai_api_key = os.getenv('OPENAI_API_KEY')
 #Defining the Language Model
@@ -142,7 +146,7 @@ embeddings = OpenAIEmbeddings()
 vector_store = Chroma(persist_directory="chroma_db_legal_bot_part1", embedding_function=embeddings)
 
 #Creating the instance of the class Lawglance
-law = Lawglance(llm, embeddings, vector_store)
+law = Lawglance(llm, embeddings, vector_store,thread_id)
 
 # Initialize chat history
 if "messages" not in st.session_state:
