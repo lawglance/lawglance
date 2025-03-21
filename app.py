@@ -148,7 +148,7 @@ embeddings = OpenAIEmbeddings()
 vector_store = Chroma(persist_directory="chroma_db_legal_bot_part1", embedding_function=embeddings)
 
 #Creating the instance of the class Lawglance
-law = Lawglance(llm, embeddings, vector_store,thread_id)
+law = Lawglance(llm, embeddings, vector_store)
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -177,7 +177,7 @@ if prompt:
 
     # Generate answer from LLM
     query = prompt
-    result = law.conversational(query)
+    result = law.conversational(query, thread_id)
 
     # Assistant's response
     def response_generator(result):
