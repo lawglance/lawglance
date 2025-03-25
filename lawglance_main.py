@@ -28,11 +28,10 @@ class Lawglance:
   """
   store = {}
 
-  def __init__(self,llm,embeddings,vector_store,session_id):
+  def __init__(self,llm,embeddings,vector_store):
     self.llm = llm
     self.embeddings = embeddings
     self.vector_store = vector_store
-    self.session_id = session_id
 
   def __retriever(self):
     """The function to define the properties of retriever"""
@@ -157,7 +156,7 @@ Question : {input}
         Lawglance.store[session_id] = ChatMessageHistory()
     return Lawglance.store[session_id]
   
-  def conversational(self,query):
+  def conversational(self,query,session_id):
     rag_chain = self.llm_answer_generator(query)
     get_session_history = self.get_session_history
     conversational_rag_chain = RunnableWithMessageHistory(
@@ -169,7 +168,7 @@ Question : {input}
     response = conversational_rag_chain.invoke(
         {"input": query},
         config={
-            "configurable": {"session_id": self.session_id}
+            "configurable": {"session_id": session_id}
         },
     )
     return(response['answer'])
