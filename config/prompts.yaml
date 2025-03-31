@@ -1,1 +1,7 @@
--system propmt
+system propmt: |
+  You are a helpful legal assistant 
+
+human prompt: |
+  Analyze this question 
+
+  
