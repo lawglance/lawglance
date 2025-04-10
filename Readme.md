@@ -126,14 +126,26 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
 
 Exciting developments are planned for **LawGlance**! Here’s what’s coming next:
 
-1. 🎨 **Sleeker User Interface**: Developing a more user-friendly and visually appealing frontend.
-2. 🌍 **Global Expansion**: Supporting legal systems from countries like Canada and more.
-3. 📑 **Expanded Legal Data**:
-   - Supreme Court Judgments
-   - Women-Centric Laws
-   - Consumer Protection & Pollution Laws
-4. 🎙️ **Voice Interaction**: Talk to **LawGlance** using voice commands.
-5. 🌐 **Multi-Lingual Support**: Providing legal assistance in multiple languages for broader reach.
+1.  **🤝 Smarter Together: Introducing Our Multi-Agentic Framework 🤖**
+    * Imagine a team of specialized AI agents working seamlessly in the background to provide you with the most comprehensive and efficient legal insights. Our new multi-agent framework makes this a reality, boosting platform performance like never before!
+
+2.  **🌎 Law Without Borders: Expanding Our Global Reach 🇨🇦 + More!**
+    * LawGlance is going global! We're significantly expanding our legal knowledge base to include jurisdictions like Canada and beyond. Soon, you'll have access to a truly worldwide legal resource at your fingertips.
+
+3.  **🗣️ Your Voice is the Key: Introducing Voice Interaction 🎙️**
+    * Navigate and access legal information effortlessly with our new voice command feature. Simply speak your queries and let LawGlance do the rest – making legal research more intuitive and accessible.
+
+4.  **🌍 Bridging Language Barriers: Multi-Lingual Legal Assistance 🌐**
+    * We're committed to serving a global audience. LawGlance will soon offer legal assistance in multiple languages, breaking down communication barriers and making our platform truly inclusive.
+
+5.  **🎯 Precision & Personalization: Advanced Search & Tailored Assistance 🔍**
+    * Say goodbye to endless scrolling! Our enhanced search engine will pinpoint the exact legal information you need with lightning speed. Plus, enjoy personalized suggestions and assistance crafted just for you.
+
+6.  **✍️ Draft with Confidence: Introducing Legal Document Generation 📄**
+    * Need a contract or agreement? Our upcoming legal document generation feature will empower you to create essential legal documents using customizable templates and intuitive user input.
+
+7.  **🗓️ Stay Organized, Stay Ahead: Introducing Case Management 📁**
+    * Effortlessly manage your legal matters with our new case management feature. Track crucial deadlines, appointments, and important events all in one centralized location, keeping you in control.
 
 ---
 
