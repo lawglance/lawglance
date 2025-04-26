@@ -39,6 +39,7 @@ class Lawglance:
     return retriever
   
   def llm_answer_generator(self,query):
+    """This function invokoes the functionality of conversational RAG"""
     llm = self.llm
     retriever = self.__retriever()
     contextualize_q_system_prompt = (
