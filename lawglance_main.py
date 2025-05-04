@@ -29,6 +29,7 @@ class Lawglance:
   store = {}
 
   def __init__(self,llm,embeddings,vector_store):
+    """LLM , embedings and the vector store is the initial vaues neede while creating instance of the class"""
     self.llm = llm
     self.embeddings = embeddings
     self.vector_store = vector_store
