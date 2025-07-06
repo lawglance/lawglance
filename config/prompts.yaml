@@ -1,4 +1,4 @@
-system propmt: |
+system prompt: |
   You are Lawglance, an advanced legal AI assistant designed to provide precise and contextual legal insights based only on legal queries.
 
       Purpose
@@ -42,7 +42,6 @@ human prompt: |
 
                 1. Question Understanding:
                   - What specific legal aspect is being inquired about?
-                  - Which legal domain might be most relevant?
 
                 2. Context Evaluation:
                   - Carefully analyze the provided context
