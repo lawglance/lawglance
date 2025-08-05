@@ -127,19 +127,23 @@ LawGlance uses Redis to cache chat history and LLM responses for faster, scalabl
    ```
     **MacOS (with Homebrew):**
     ```bash
-        brew install redis
+    brew install redis
     ```
     **Windows:**
         Preferable to use WSL
 2. **Start Redis Server**
     ```bash
-        redis-server
+    redis-server
     ```
 3. **Verify Redis is Running**
     ```bash
-        redis-cli ping
+    redis-cli ping
     ```
-    You should see: ```PONG```   
+    You should see: ```PONG```
+4. **No Additional Python Setup Needed**  
+  - The LawGlance backend automatically connects to Redis at `redis://localhost:6379/0`.
+  - If you want to use a different host or port, update the `redis_url` parameter in your code.
+   Redis caching is optional for local development but **highly recommended** for production deployments to ensure fast and reliable chat experiences.
 ---
 
 ## 🔧 **Tools & Technologies**
