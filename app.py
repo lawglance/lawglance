@@ -177,7 +177,13 @@ if prompt:
 
     # Generate answer from LLM
     query = prompt
-    result = law.conversational(query, thread_id)
+    chat_history = [
+    {"role": m["role"], "content": m["content"]}
+    for m in st.session_state.messages
+]
+
+    result = law.conversational(query, thread_id, chat_history=chat_history)
+    # result = law.conversational(query, thread_id)
 
     # Assistant's response
     def response_generator(result):

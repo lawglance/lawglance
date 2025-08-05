@@ -4,9 +4,12 @@ from langchain.chains import create_retrieval_chain
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import create_history_aware_retriever
 from langchain_core.prompts import MessagesPlaceholder
-from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_community.chat_message_histories import ChatMessageHistory,RedisChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
+import redis
+import hashlib
+import threading
 
 #This Class delas with working of Chatbot
 
@@ -27,12 +30,20 @@ class Lawglance:
     law.conversational(query2)
   """
   store = {}
+  store_lock = threading.Lock()
 
-  def __init__(self,llm,embeddings,vector_store):
+  def __init__(self,llm,embeddings,vector_store,redis_url="redis://localhost:6379/0"):
     """LLM , embedings and the vector store is the initial vaues neede while creating instance of the class"""
     self.llm = llm
     self.embeddings = embeddings
     self.vector_store = vector_store
+    self.redis_url = redis_url
+    self.redis_client = redis.Redis.from_url(redis_url)
+  
+  def _cache_key(self, query, session_id):
+        """Create a unique cache key for each query and session"""
+        key_raw = f"{session_id}:{query}"
+        return "llm_cache:" + hashlib.sha256(key_raw.encode()).hexdigest()
 
   def __retriever(self):
     """The function to define the properties of retriever"""
@@ -66,11 +77,8 @@ class Lawglance:
 
       Purpose
         Your purpose is to provide legal assistant and to democratize legal access.
-
       You are provided with some guidelines and core principles for answering legal queries:
-
-
-
+      You have access to the full chat history. Use it to answer questions that reference previous messages, such as 'what was my previous question?' or 'can you summarize our conversation so far?
     Current Legal Knowledge Domains :
       Indian Constitution
       Bharatiya Nyaya Sanhita, 2023 (BNS)
@@ -154,11 +162,19 @@ Question : {input}
     return rag_chain
 
   def get_session_history(self,session_id: str) -> BaseChatMessageHistory:
-    if session_id not in Lawglance.store:
-        Lawglance.store[session_id] = ChatMessageHistory()
+    with Lawglance.store_lock:
+      if session_id not in Lawglance.store:
+          Lawglance.store[session_id] = RedisChatMessageHistory(
+                  session_id=session_id,
+                  url=self.redis_url
+              )
     return Lawglance.store[session_id]
   
-  def conversational(self,query,session_id):
+  def conversational(self,query,session_id, chat_history=None):
+    cache_key = self._cache_key(query, session_id)
+    cached_answer = self.redis_client.get(cache_key)
+    if cached_answer:
+        return cached_answer.decode("utf-8")
     rag_chain = self.llm_answer_generator(query)
     get_session_history = self.get_session_history
     conversational_rag_chain = RunnableWithMessageHistory(
@@ -168,9 +184,11 @@ Question : {input}
         history_messages_key="chat_history",
         output_messages_key="answer")
     response = conversational_rag_chain.invoke(
-        {"input": query},
+        {"input": query, "chat_history": chat_history or []},
         config={
             "configurable": {"session_id": session_id}
         },
     )
-    return(response['answer'])
+    answer = response['answer']
+    self.redis_client.set(cache_key, answer)
+    return answer

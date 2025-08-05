@@ -1,2 +1,8 @@
 hello.py
 hello-world/*
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.idea/

@@ -27,6 +27,7 @@ dependencies = [
     "openai>=1.66.3",
     "pymupdf==1.24.9",
     "pymupdfb==1.24.9",
+    "redis>=6.3.0",
     "streamlit==1.37.0",
 ]
 
