@@ -12,6 +12,47 @@ logging.basicConfig(
 )
 
 class Lawglance:
+    """
+    Lawglance is a conversational AI interface that leverages a retrieval-augmented generation (RAG) pipeline 
+    to answer user queries based on vector search and LLM responses. It supports Redis-based caching to improve 
+    performance and stores session-based chat histories in memory.
+
+    Attributes:
+        llm: An instance of the language model to use (e.g., OpenAI, Anthropic, etc.).
+        embeddings: Embedding model used for vectorization of text.
+        vector_store: A vector store (e.g., Chroma, FAISS) used for semantic retrieval.
+        cache: Instance of RedisCache for caching responses and chat histories.
+
+    Args:
+        llm (BaseLanguageModel): The LLM to generate responses.
+        embeddings (Embeddings): Embedding model used for vector search.
+        vector_store (VectorStore): A vector store instance to fetch relevant documents.
+        redis_url (str): Redis connection string. Defaults to "redis://localhost:6379/0".
+
+    Methods:
+        get_session_history(session_id: str) -> list:
+            Retrieves or initializes the chat history for the given session ID.
+        
+        conversational(query: str, session_id: str, chat_history: Optional[list] = None) -> str:
+            Handles the user query, checks for cached responses, invokes RAG pipeline if necessary,
+            and returns an LLM-generated answer.
+
+    Example:
+        >>> from langchain.chat_models import ChatOpenAI
+        >>> from langchain.vectorstores import Chroma
+        >>> from lawglance import Lawglance
+        >>> llm = ChatOpenAI()
+        >>> vector_store = Chroma()
+        >>> app = Lawglance(llm, embeddings, vector_store)
+        >>> response = app.conversational("What is Article 21 of the Constitution?", session_id="user_123")
+        >>> print(response)
+        "Article 21 of the Indian Constitution guarantees the right to life and personal liberty..."
+
+    Notes:
+        - Chat history is stored in memory during runtime and synchronized with Redis for persistence.
+        - Redis caching significantly improves performance by avoiding redundant LLM calls for repeated queries.
+        - Thread safety is ensured when accessing or updating session histories using a class-level lock.
+    """
     store = {}
     store_lock = threading.Lock()
 
