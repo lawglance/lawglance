@@ -10,10 +10,16 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 import redis
 import hashlib
 import threading
+import logging
 
-#This Class delas with working of Chatbot
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(message)s',
+    handlers=[logging.StreamHandler()]
+)
 
 class Lawglance: 
+
   """This is the class which deals mainly with a conversational RAG
     It takes llm, embeddings and vector store as input to initialise.
 
@@ -38,20 +44,30 @@ class Lawglance:
     self.embeddings = embeddings
     self.vector_store = vector_store
     self.redis_url = redis_url
-    self.redis_client = redis.Redis.from_url(redis_url)
+    try:
+        self.redis_client = redis.Redis.from_url(redis_url)
+        self.redis_client.ping()
+        logging.info(f"Connected to Redis at {redis_url}")
+    except Exception as e:
+        logging.error(f"Failed to connect to Redis: {e}")
+        self.redis_client = None
   
   def _cache_key(self, query, session_id):
         """Create a unique cache key for each query and session"""
         key_raw = f"{session_id}:{query}"
-        return "llm_cache:" + hashlib.sha256(key_raw.encode()).hexdigest()
+        cache_key = "llm_cache:" + hashlib.sha256(key_raw.encode()).hexdigest()
+        logging.debug(f"Generated cache key: {cache_key}")
+        return cache_key
 
   def __retriever(self):
     """The function to define the properties of retriever"""
+    logging.info("Creating retriever with similarity_score_threshold.")
     retriever = self.vector_store.as_retriever(search_type="similarity_score_threshold",search_kwargs={"k": 10, "score_threshold":0.3})
     return retriever
   
   def llm_answer_generator(self,query):
     """This function invokoes the functionality of conversational RAG"""
+    logging.info(f"Generating answer for query: {query}")
     llm = self.llm
     retriever = self.__retriever()
     contextualize_q_system_prompt = (
@@ -75,11 +91,14 @@ class Lawglance:
     system_prompt = (
       """ You are Lawglance, an advanced legal AI assistant designed to provide precise and contextual legal insights based only on legal queries.
 
-      Purpose
-        Your purpose is to provide legal assistant and to democratize legal access.
-      You are provided with some guidelines and core principles for answering legal queries:
-      You have access to the full chat history. Use it to answer questions that reference previous messages, such as 'what was my previous question?' or 'can you summarize our conversation so far?
-    Current Legal Knowledge Domains :
+    Purpose
+      Your purpose is to provide legal assistant and to democratize legal access.
+
+    You are provided with some guidelines and core principles for answering legal queries:
+    You have access to the full chat history. Use it to answer questions that reference previous messages, such as 'what was my previous question?' or 'can you summarize our conversation so far?'
+
+    If the user asks about previous questions or requests a summary of the conversation, use the chat history to answer. For example, if asked "what was my first question?", return the first user question from the chat history.
+  Current Legal Knowledge Domains :
       Indian Constitution
       Bharatiya Nyaya Sanhita, 2023 (BNS)
       Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS)
@@ -93,7 +112,6 @@ class Lawglance:
 Question : {input}
 
 """
-    
     )
     qa_prompt = ChatPromptTemplate.from_messages(
             [
@@ -159,6 +177,7 @@ Question : {input}
 
     question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
     rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
+    logging.info("RAG chain created successfully.")
     return rag_chain
 
   def get_session_history(self,session_id: str) -> BaseChatMessageHistory:
@@ -168,13 +187,23 @@ Question : {input}
                   session_id=session_id,
                   url=self.redis_url
               )
+          logging.info(f"Created new RedisChatMessageHistory for session_id: {session_id}")
+      else:
+          logging.debug(f"Using existing RedisChatMessageHistory for session_id: {session_id}")
     return Lawglance.store[session_id]
   
   def conversational(self,query,session_id, chat_history=None):
+    logging.info(f"Received query: '{query}' for session_id: {session_id}")
     cache_key = self._cache_key(query, session_id)
-    cached_answer = self.redis_client.get(cache_key)
+    cached_answer = None
+    try:
+        cached_answer = self.redis_client.get(cache_key)
+    except Exception as e:
+        logging.error(f"Error fetching from Redis: {e}")
     if cached_answer:
+        logging.info(f"Cache hit for key: {cache_key}")
         return cached_answer.decode("utf-8")
+    logging.info(f"Cache miss for key: {cache_key}. Generating new answer.")
     rag_chain = self.llm_answer_generator(query)
     get_session_history = self.get_session_history
     conversational_rag_chain = RunnableWithMessageHistory(
@@ -183,12 +212,21 @@ Question : {input}
         input_messages_key="input",
         history_messages_key="chat_history",
         output_messages_key="answer")
-    response = conversational_rag_chain.invoke(
-        {"input": query, "chat_history": chat_history or []},
-        config={
-            "configurable": {"session_id": session_id}
-        },
-    )
-    answer = response['answer']
-    self.redis_client.set(cache_key, answer)
+    try:
+        response = conversational_rag_chain.invoke(
+            {"input": query, "chat_history": chat_history or []},
+            config={
+                "configurable": {"session_id": session_id}
+            },
+        )
+        answer = response['answer']
+        logging.info(f"Generated answer for query: '{query}'")
+    except Exception as e:
+        logging.error(f"Error during LLM invocation: {e}")
+        answer = "Sorry, an error occurred while processing your request."
+    try:
+        self.redis_client.set(cache_key, answer)
+        logging.info(f"Cached answer for key: {cache_key}")
+    except Exception as e:
+        logging.error(f"Error saving to Redis: {e}")
     return answer

@@ -63,6 +63,7 @@ Curious how **LawGlance** works? Watch this detailed tutorial!
 ---
 
 ## 💻 **Developer Quick Start Guide**
+---   
 
 Ready to get started? Follow these simple steps to set up **LawGlance** on your machine:
 
@@ -109,7 +110,36 @@ Ready to get started? Follow these simple steps to set up **LawGlance** on your 
     ```bash
     http://127.0.0.1:8501
     ```
+---
 
+## 🗄️ **Enable Redis Caching (Recommended for Production Use)**
+
+LawGlance uses Redis to cache chat history and LLM responses for faster, scalable performance.
+
+### **How to Install and Activate Redis**
+
+1. **Install Redis Server**
+
+   **Ubuntu/Linux:**
+   ```bash
+    sudo apt-get update
+    sudo apt-get install redis-server
+   ```
+    **MacOS (with Homebrew):**
+    ```bash
+        brew install redis
+    ```
+    **Windows:**
+        Preferable to use WSL
+2. **Start Redis Server**
+    ```bash
+        redis-server
+    ```
+3. **Verify Redis is Running**
+    ```bash
+        redis-cli ping
+    ```
+    You should see: ```PONG```   
 ---
 
 ## 🔧 **Tools & Technologies**
