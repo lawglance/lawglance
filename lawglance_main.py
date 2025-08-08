@@ -1,9 +1,9 @@
 import threading
 import logging
 from cache import RedisCache
+from langchain.schema import HumanMessage, AIMessage
 from chains import get_rag_chain
 from prompts import SYSTEM_PROMPT, QA_PROMPT
-
 
 logging.basicConfig(
     level=logging.INFO,
@@ -30,28 +30,12 @@ class Lawglance:
         redis_url (str): Redis connection string. Defaults to "redis://localhost:6379/0".
 
     Methods:
-        get_session_history(session_id: str) -> list:
+        get_session_history(session_id: str) -> RedisChatMessageHistory:
             Retrieves or initializes the chat history for the given session ID.
         
-        conversational(query: str, session_id: str, chat_history: Optional[list] = None) -> str:
+        conversational(query: str, session_id: str) -> Tuple[str, list]:
             Handles the user query, checks for cached responses, invokes RAG pipeline if necessary,
-            and returns an LLM-generated answer.
-
-    Example:
-        >>> from langchain.chat_models import ChatOpenAI
-        >>> from langchain.vectorstores import Chroma
-        >>> from lawglance import Lawglance
-        >>> llm = ChatOpenAI()
-        >>> vector_store = Chroma()
-        >>> app = Lawglance(llm, embeddings, vector_store)
-        >>> response = app.conversational("What is Article 21 of the Constitution?", session_id="user_123")
-        >>> print(response)
-        "Article 21 of the Indian Constitution guarantees the right to life and personal liberty..."
-
-    Notes:
-        - Chat history is stored in memory during runtime and synchronized with Redis for persistence.
-        - Redis caching significantly improves performance by avoiding redundant LLM calls for repeated queries.
-        - Thread safety is ensured when accessing or updating session histories using a class-level lock.
+            updates history, and returns answer and updated messages.
     """
     store = {}
     store_lock = threading.Lock()
@@ -71,19 +55,42 @@ class Lawglance:
                 logging.debug(f"Using existing chat history for session_id: {session_id}")
         return Lawglance.store[session_id]
 
-    def conversational(self, query, session_id, chat_history=None):
+    def conversational(self, query, session_id):
+        """
+        Handles a query from a user within a session:
+        - Uses Redis-based history for retrieval.
+        - Returns cached response if available.
+        - Otherwise, runs full RAG pipeline and updates history.
+
+        Returns:
+            Tuple[str, list]: (LLM answer, updated message list)
+        """
         cache_key = self.cache.make_cache_key(query, session_id)
         cached_answer = self.cache.get(cache_key)
         if cached_answer:
             logging.info(f"Cache hit for key: {cache_key}")
-            return cached_answer
+            chat_history = self.get_session_history(session_id).messages
+            return cached_answer, chat_history
+
         logging.info(f"Cache miss for key: {cache_key}. Generating new answer.")
+
         rag_chain = get_rag_chain(self.llm, self.vector_store, SYSTEM_PROMPT, QA_PROMPT)
-        get_session_history = self.get_session_history
+
+        chat_history_obj = self.get_session_history(session_id)
+        messages = chat_history_obj.messages
+
         response = rag_chain.invoke(
-            {"input": query, "chat_history": chat_history or []},
+            {"input": query, "chat_history": messages},
             config={"configurable": {"session_id": session_id}},
         )
+
         answer = response['answer']
+
+        # Update chat history
+        chat_history_obj.add_user_message(query)
+        chat_history_obj.add_ai_message(answer)
+
+        # Cache the answer
         self.cache.set(cache_key, answer)
-        return answer
+
+        return answer, chat_history_obj.messages
