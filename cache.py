@@ -45,6 +45,7 @@ class RedisCache:
         - Relies on LangChain's RedisChatMessageHistory for managing ongoing conversation state.
     """
     def __init__(self, redis_url):
+        self.redis_url = redis_url
         self.redis_client = redis.Redis.from_url(redis_url)
 
     def make_cache_key(self, query, session_id):
@@ -62,4 +63,4 @@ class RedisCache:
             self.redis_client.set(key, value)
 
     def get_chat_history(self, session_id):
-        return RedisChatMessageHistory(session_id=session_id, url=self.redis_client.connection_pool.connection_kwargs['host'])
+        return RedisChatMessageHistory(session_id=session_id, url=self.redis_url)
