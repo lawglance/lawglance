@@ -10,7 +10,13 @@ cd lawglance
 uv sync
 ```
 
-Copy `.env.example` to `.env.local` and fill in your own API keys. Never commit `.env.local` — it's gitignored.
+Copy `.env.example` to `.env` and fill in your own API key:
+
+```bash
+cp .env.example .env
+```
+
+Never commit `.env` — it's gitignored.
 
 ## Running tests
 
@@ -18,7 +24,7 @@ Copy `.env.example` to `.env.local` and fill in your own API keys. Never commit 
 uv run pytest tests/ -v
 ```
 
-All PRs must pass CI (tests + lint) before merge. Please run tests locally before opening a PR.
+All PRs must pass CI (tests + lint + secret scan) before merge. Please run tests locally before opening a PR.
 
 ## Before you open a PR
 
