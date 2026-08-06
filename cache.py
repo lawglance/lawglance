@@ -2,9 +2,10 @@ import redis
 import hashlib
 from langchain_community.chat_message_histories import RedisChatMessageHistory
 
+
 class RedisCache:
     """
-    RedisCache provides an interface for storing and retrieving cached LLM responses and chat histories 
+    RedisCache provides an interface for storing and retrieving cached LLM responses and chat histories
     using a Redis backend. It also integrates with LangChain's RedisChatMessageHistory to persist chat sessions.
 
     Attributes:
@@ -32,7 +33,7 @@ class RedisCache:
         >>> cache.set(key, "AI stands for Artificial Intelligence.")
         >>> print(cache.get(key))
         "AI stands for Artificial Intelligence."
-        
+
         >>> chat_history = cache.get_chat_history("user123")
         >>> chat_history.add_user_message("Hello!")
         >>> messages = chat_history.messages
@@ -44,13 +45,14 @@ class RedisCache:
         - Supports both persistent and time-limited (TTL) caching.
         - Relies on LangChain's RedisChatMessageHistory for managing ongoing conversation state.
     """
+
     def __init__(self, redis_url):
         self.redis_url = redis_url
         self.redis_client = redis.Redis.from_url(redis_url)
 
     def make_cache_key(self, query, session_id):
         key_raw = f"{session_id}:{query}"
-        return "llm_cache:" + hashlib.sha256(key_raw.encode()).hexdigest()
+        return "llm_cache_v2:" + hashlib.sha256(key_raw.encode()).hexdigest()
 
     def get(self, key):
         value = self.redis_client.get(key)

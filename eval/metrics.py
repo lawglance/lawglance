@@ -1,7 +1,9 @@
 import math
 
 
-def rank_of_correct_chunk(retrieved_chunk_ids: list[str], correct_chunk_id: str) -> int | None:
+def rank_of_correct_chunk(
+    retrieved_chunk_ids: list[str], correct_chunk_id: str
+) -> int | None:
     """1-indexed position of correct_chunk_id in retrieved_chunk_ids, or None if absent."""
     if correct_chunk_id not in retrieved_chunk_ids:
         return None
@@ -29,5 +31,7 @@ def recall_confidence_interval(ranks: list[int | None]) -> tuple[float, float]:
     p_hat = recall(ranks)
     denominator = 1 + z**2 / n
     center = (p_hat + z**2 / (2 * n)) / denominator
-    half_width = (z / denominator) * math.sqrt(p_hat * (1 - p_hat) / n + z**2 / (4 * n**2))
+    half_width = (z / denominator) * math.sqrt(
+        p_hat * (1 - p_hat) / n + z**2 / (4 * n**2)
+    )
     return center - half_width, center + half_width

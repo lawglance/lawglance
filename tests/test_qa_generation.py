@@ -1,4 +1,8 @@
-from eval.qa_generation import DraftedQuestion, draft_question_for_chunk, generate_candidate_qa_items
+from eval.qa_generation import (
+    DraftedQuestion,
+    draft_question_for_chunk,
+    generate_candidate_qa_items,
+)
 
 
 class FakeChain:

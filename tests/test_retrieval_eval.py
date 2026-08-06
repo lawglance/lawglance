@@ -14,7 +14,10 @@ def test_run_retrieval_eval_scores_against_retrieved_chunks():
 
     def fake_retrieve(question: str) -> list[Document]:
         if question == "q1":
-            return [Document(page_content="correct chunk 1"), Document(page_content="other")]
+            return [
+                Document(page_content="correct chunk 1"),
+                Document(page_content="other"),
+            ]
         return [Document(page_content="unrelated")]
 
     results = run_retrieval_eval(golden_set, fake_retrieve)

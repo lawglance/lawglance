@@ -41,6 +41,8 @@ def generate_candidate_qa_items(
 ) -> list[GoldenQAItem]:
     """Draft one candidate GoldenQAItem per chunk, for human accept/edit review."""
     return [
-        GoldenQAItem(question=draft_question_for_chunk(chunk_text, chain), chunk_text=chunk_text)
+        GoldenQAItem(
+            question=draft_question_for_chunk(chunk_text, chain), chunk_text=chunk_text
+        )
         for chunk_text in chunk_texts
     ]

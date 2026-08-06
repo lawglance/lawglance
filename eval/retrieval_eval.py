@@ -32,10 +32,14 @@ class EvalResults:
     recall_ci: tuple[float, float]
 
 
-def build_real_retriever(persist_directory: str = CHROMA_PERSIST_DIRECTORY) -> VectorStoreRetriever:
+def build_real_retriever(
+    persist_directory: str = CHROMA_PERSIST_DIRECTORY,
+) -> VectorStoreRetriever:
     """Real Chroma-backed retriever; not unit tested, validated by a manual run."""
     embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
-    vector_store = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
+    vector_store = Chroma(
+        persist_directory=persist_directory, embedding_function=embeddings
+    )
     return vector_store.as_retriever(
         search_type=RETRIEVER_SEARCH_TYPE, search_kwargs=RETRIEVER_SEARCH_KWARGS
     )

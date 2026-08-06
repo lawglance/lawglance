@@ -25,14 +25,20 @@ def looks_self_contained(chunk_text: str) -> bool:
     return starts_clean and ends_clean
 
 
-def load_all_chunk_texts(persist_directory: str = CHROMA_PERSIST_DIRECTORY) -> list[str]:
+def load_all_chunk_texts(
+    persist_directory: str = CHROMA_PERSIST_DIRECTORY,
+) -> list[str]:
     """Real Chroma read; not unit tested, validated by a manual run."""
     embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
-    vector_store = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
+    vector_store = Chroma(
+        persist_directory=persist_directory, embedding_function=embeddings
+    )
     return vector_store.get()["documents"]
 
 
-def sample_clean_chunks(chunk_texts: list[str], n: int, seed: int | None = None) -> list[str]:
+def sample_clean_chunks(
+    chunk_texts: list[str], n: int, seed: int | None = None
+) -> list[str]:
     """Sample n chunks that pass looks_self_contained; raises if fewer than n qualify."""
     clean_chunks = [chunk for chunk in chunk_texts if looks_self_contained(chunk)]
     return random.Random(seed).sample(clean_chunks, n)
