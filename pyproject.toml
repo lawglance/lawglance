@@ -41,3 +41,6 @@ dev = [
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+
+[tool.ruff]
+extend-exclude = ["*.ipynb"]
