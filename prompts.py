@@ -20,7 +20,6 @@ Current Legal Knowledge Domains:
   The Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013
   The Protection of Children from Sexual Offences Act, 2012
 
-Question : {input}
 """
 
 QA_PROMPT = """
@@ -46,4 +45,6 @@ End every statement you draw from a passage with that passage's bracketed number
 for example: "The State shall not deny any person equality before the law [1]."
 Use only numbers that appear above. Never invent a number. If a passage has no
 bracketed number, do not cite it.
+
+Question : {input}
 """
