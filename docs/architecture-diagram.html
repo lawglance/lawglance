@@ -1,0 +1,312 @@
+<title>LawGlance — Request Path: Today vs. After</title>
+<style>
+  :root{
+    --bg:#f4f5f2;
+    --surface:#ffffff;
+    --border:#d7dad3;
+    --text:#1b1f1c;
+    --text-muted:#5c625b;
+    --accent:#1f6f78;
+    --accent-soft:#e3f1f1;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12161a; --surface:#1a2024; --border:#2b3338;
+      --text:#e7ebe9; --text-muted:#98a29d;
+      --accent:#5fd3d3; --accent-soft:#16302f;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12161a; --surface:#1a2024; --border:#2b3338;
+    --text:#e7ebe9; --text-muted:#98a29d;
+    --accent:#5fd3d3; --accent-soft:#16302f;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:var(--sans);
+    padding: 40px 24px 64px;
+  }
+  main{max-width:1180px; margin:0 auto; display:flex; flex-direction:column; gap:28px;}
+
+  h1{
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    margin:0;
+    text-wrap: balance;
+    letter-spacing:-0.01em;
+  }
+  .subhead{
+    color:var(--text-muted);
+    font-size:15px;
+    max-width:65ch;
+    line-height:1.5;
+    margin:0;
+  }
+  .subhead code{
+    font-family:var(--mono); font-size:0.92em;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:4px; padding:0 4px;
+  }
+
+  figure{margin:0; display:flex; flex-direction:column; gap:14px;}
+  .diagram-frame{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:16px;
+    overflow-x:auto;
+  }
+  svg{display:block; width:100%; height:auto; min-width:820px;}
+  figcaption{
+    font-size:14px; color:var(--text-muted); line-height:1.55;
+    max-width:78ch;
+  }
+  figcaption strong{color:var(--text); font-weight:600;}
+
+  .legend{
+    display:flex; flex-wrap:wrap; gap:20px;
+    font-size:12.5px; color:var(--text-muted);
+    align-items:center;
+  }
+  .legend span{display:inline-flex; align-items:center; gap:7px;}
+  .swatch{width:22px; height:0; border-top:2px solid var(--text-muted); display:inline-block;}
+  .swatch.dashed{border-top-style:dashed;}
+  .swatch.accent{border-top-color:var(--accent); border-top-width:2.5px;}
+
+  .deltas{
+    display:grid; gap:10px;
+    border-top:1px solid var(--border);
+    padding-top:22px;
+  }
+  .delta-row{
+    display:grid; grid-template-columns: 148px 1fr; gap:16px;
+    font-size:14px; line-height:1.5;
+    align-items:baseline;
+  }
+  .delta-row .tag{
+    font-family:var(--mono); font-size:11.5px; font-weight:600;
+    color:var(--accent);
+    letter-spacing:0.02em;
+  }
+  .delta-row p{margin:0; color:var(--text);}
+  .delta-row code{
+    font-family:var(--mono); font-size:0.92em;
+    background:var(--bg); border:1px solid var(--border);
+    border-radius:4px; padding:0 4px;
+  }
+
+  @media (max-width: 760px){
+    .delta-row{grid-template-columns:1fr;}
+  }
+</style>
+
+<main>
+  <div style="display:flex; flex-direction:column; gap:10px;">
+    <h1>LawGlance — request path, today vs. after</h1>
+    <p class="subhead">
+      What changes when the fixed LangChain chain becomes a LangGraph state machine sitting behind FastAPI.
+      Same two boxes at the top of each column — the divergence starts at the service boundary.
+    </p>
+  </div>
+
+  <figure>
+    <div class="diagram-frame">
+      <svg viewBox="0 0 1260 500" role="img" aria-label="Two-column diagram comparing the current in-process Streamlit call chain against the planned FastAPI plus LangGraph architecture with SSE streaming.">
+        <defs>
+          <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L8,4 L0,8 z" fill="currentColor"/>
+          </marker>
+          <marker id="arrowAccent" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L8,4 L0,8 z" style="fill:var(--accent)"/>
+          </marker>
+        </defs>
+
+        <!-- panel titles -->
+        <text x="320" y="34" text-anchor="middle" font-family="var(--sans)" font-size="15" font-weight="700" fill="var(--text)">TODAY</text>
+        <text x="320" y="50" text-anchor="middle" font-family="var(--sans)" font-size="10.5" fill="var(--text-muted)">chains.py, in-process, blocking</text>
+        <text x="940" y="34" text-anchor="middle" font-family="var(--sans)" font-size="15" font-weight="700" style="fill:var(--accent)">AFTER</text>
+        <text x="940" y="50" text-anchor="middle" font-family="var(--sans)" font-size="10.5" fill="var(--text-muted)">agent.py + api.py, service split, streamed</text>
+
+        <line x1="620" y1="55" x2="620" y2="490" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="3 4"/>
+
+        <!-- ============ BEFORE ============ -->
+        <g font-family="var(--mono)" fill="var(--text)">
+          <!-- R1 Browser -->
+          <rect x="190" y="70" width="260" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="320" y="84" text-anchor="middle" font-size="11.5" font-weight="600">Browser</text>
+          <text x="320" y="97" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">Streamlit page</text>
+
+          <!-- R2 app.py -->
+          <rect x="190" y="144" width="260" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="320" y="158" text-anchor="middle" font-size="11.5" font-weight="600">app.py</text>
+          <text x="320" y="171" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">Streamlit server</text>
+
+          <!-- R3 lawglance_main -->
+          <rect x="190" y="218" width="260" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="320" y="232" text-anchor="middle" font-size="11.5" font-weight="600">lawglance_main.py</text>
+          <text x="320" y="245" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">Lawglance.conversational()</text>
+
+          <!-- side Redis -->
+          <rect x="460" y="218" width="120" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="520" y="232" text-anchor="middle" font-size="11" font-weight="600">Redis</text>
+          <text x="520" y="245" text-anchor="middle" font-size="9" fill="var(--text-muted)">cache + history</text>
+
+          <!-- R4 chains.py -->
+          <rect x="190" y="292" width="260" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="320" y="306" text-anchor="middle" font-size="11.5" font-weight="600">chains.py</text>
+          <text x="320" y="319" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">get_rag_chain(...)</text>
+
+          <!-- R5 infra -->
+          <rect x="80" y="366" width="220" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="190" y="380" text-anchor="middle" font-size="11.5" font-weight="600">Chroma</text>
+          <text x="190" y="393" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">vector store</text>
+
+          <rect x="340" y="366" width="220" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="450" y="380" text-anchor="middle" font-size="11.5" font-weight="600">OpenAI</text>
+          <text x="450" y="393" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">ChatOpenAI, ≤2 calls</text>
+        </g>
+
+        <g stroke="var(--text-muted)" stroke-width="1.4" fill="none">
+          <line x1="320" y1="108" x2="320" y2="143" marker-end="url(#arrow)"/>
+          <line x1="320" y1="182" x2="320" y2="217" marker-end="url(#arrow)"/>
+          <line x1="450" y1="237" x2="459" y2="237" marker-end="url(#arrow)"/>
+          <line x1="320" y1="256" x2="320" y2="291" marker-end="url(#arrow)"/>
+          <line x1="250" y1="330" x2="215" y2="365" marker-end="url(#arrow)"/>
+          <line x1="390" y1="330" x2="425" y2="365" marker-end="url(#arrow)"/>
+        </g>
+        <g font-family="var(--sans)" font-size="9.5" fill="var(--text-muted)" style="paint-order:stroke; stroke:var(--bg); stroke-width:4;">
+          <text x="332" y="128">renders chat UI</text>
+          <text x="332" y="202">on submit</text>
+          <text x="465" y="230">cache + history r/w</text>
+          <text x="332" y="277">cache miss: rebuild chain</text>
+          <text x="205" y="352">k=10, score&gt;0.3</text>
+          <text x="405" y="352">contextualize? + generate</text>
+        </g>
+
+        <!-- before return curve -->
+        <path d="M 190 311 C 30 311 30 89 190 89" fill="none" stroke="var(--text-muted)" stroke-width="1.4" marker-end="url(#arrow)"/>
+        <text x="18" y="200" transform="rotate(-90 18 200)" text-anchor="middle" font-family="var(--sans)" font-size="9.5" fill="var(--text-muted)">single blocking response: full answer + citations</text>
+
+        <!-- ============ AFTER ============ -->
+        <g font-family="var(--mono)" fill="var(--text)">
+          <!-- R1 Browser -->
+          <rect x="810" y="70" width="260" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="940" y="84" text-anchor="middle" font-size="11.5" font-weight="600">Browser</text>
+          <text x="940" y="97" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">Streamlit page</text>
+
+          <!-- R2 app.py -->
+          <rect x="810" y="144" width="260" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="940" y="158" text-anchor="middle" font-size="11.5" font-weight="600">app.py</text>
+          <text x="940" y="171" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">SSE client (httpx)</text>
+
+          <!-- R3 api.py NEW -->
+          <rect x="810" y="218" width="260" height="38" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+          <text x="940" y="232" text-anchor="middle" font-size="11.5" font-weight="600">api.py — new</text>
+          <text x="940" y="245" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">FastAPI · POST /chat/stream</text>
+
+          <!-- R4 lawglance_main -->
+          <rect x="810" y="292" width="260" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="940" y="306" text-anchor="middle" font-size="11.5" font-weight="600">lawglance_main.py</text>
+          <text x="940" y="319" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">Lawglance.conversational_stream()</text>
+
+          <!-- side Redis -->
+          <rect x="1080" y="292" width="120" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="1140" y="306" text-anchor="middle" font-size="11" font-weight="600">Redis</text>
+          <text x="1140" y="319" text-anchor="middle" font-size="9" fill="var(--text-muted)">cache + history</text>
+
+          <!-- R5 nodes -->
+          <rect x="700" y="366" width="110" height="38" rx="6" fill="var(--surface)" stroke="var(--text-muted)" stroke-dasharray="4 3"/>
+          <text x="755" y="380" text-anchor="middle" font-size="11" font-weight="600">contextualize</text>
+          <text x="755" y="393" text-anchor="middle" font-size="8.7" fill="var(--text-muted)">if chat_history</text>
+
+          <rect x="823" y="366" width="110" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="878" y="380" text-anchor="middle" font-size="11" font-weight="600">retrieve</text>
+          <text x="878" y="393" text-anchor="middle" font-size="8.7" fill="var(--text-muted)">@tool</text>
+
+          <rect x="946" y="366" width="110" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="1001" y="380" text-anchor="middle" font-size="11" font-weight="600">generate</text>
+          <text x="1001" y="393" text-anchor="middle" font-size="8.7" fill="var(--text-muted)">streamed tokens</text>
+
+          <rect x="1069" y="366" width="110" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="1124" y="380" text-anchor="middle" font-size="11" font-weight="600">postprocess</text>
+          <text x="1124" y="393" text-anchor="middle" font-size="8.7" fill="var(--text-muted)">resolve citations</text>
+
+          <!-- R6 infra -->
+          <rect x="700" y="440" width="220" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="810" y="454" text-anchor="middle" font-size="11.5" font-weight="600">Chroma</text>
+          <text x="810" y="467" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">vector store</text>
+
+          <rect x="960" y="440" width="220" height="38" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="1070" y="454" text-anchor="middle" font-size="11.5" font-weight="600">OpenAI</text>
+          <text x="1070" y="467" text-anchor="middle" font-size="9.5" fill="var(--text-muted)">ChatOpenAI, streaming</text>
+        </g>
+
+        <g stroke="var(--text-muted)" stroke-width="1.4" fill="none">
+          <line x1="940" y1="108" x2="940" y2="143" marker-end="url(#arrow)"/>
+          <line x1="940" y1="182" x2="940" y2="217" marker-end="url(#arrow)"/>
+          <line x1="940" y1="256" x2="940" y2="291" marker-end="url(#arrow)"/>
+          <line x1="1070" y1="311" x2="1079" y2="311" marker-end="url(#arrow)"/>
+          <line x1="822" y1="330" x2="795" y2="365" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+          <line x1="938" y1="330" x2="880" y2="365" marker-end="url(#arrow)"/>
+          <line x1="810" y1="385" x2="822" y2="385" marker-end="url(#arrow)"/>
+          <line x1="933" y1="385" x2="945" y2="385" marker-end="url(#arrow)"/>
+          <line x1="1056" y1="385" x2="1068" y2="385" marker-end="url(#arrow)"/>
+          <line x1="866" y1="404" x2="815" y2="439" marker-end="url(#arrow)"/>
+          <line x1="1010" y1="404" x2="1055" y2="439" marker-end="url(#arrow)"/>
+        </g>
+        <g font-family="var(--sans)" font-size="9" fill="var(--text-muted)" style="paint-order:stroke; stroke:var(--bg); stroke-width:4;">
+          <text x="952" y="128">renders chat UI</text>
+          <text x="952" y="202">POST /chat/stream (SSE)</text>
+          <text x="952" y="277">async call</text>
+          <text x="1085" y="304">cache + history r/w</text>
+          <text x="700" y="352">history present</text>
+          <text x="905" y="352">history empty</text>
+          <text x="770" y="378" font-size="8">reformulated</text>
+          <text x="893" y="378" font-size="8">annotated docs</text>
+          <text x="1016" y="378" font-size="8">answer+[n]s</text>
+          <text x="775" y="425">k=10, score&gt;0.3</text>
+          <text x="1000" y="425">stream completion</text>
+        </g>
+
+        <!-- after return curve, accent -->
+        <path d="M 1179 385 C 1240 385 1240 89 1070 89" fill="none" style="stroke:var(--accent)" stroke-width="1.8" marker-end="url(#arrowAccent)"/>
+        <text x="1250" y="200" transform="rotate(90 1250 200)" text-anchor="middle" font-family="var(--sans)" font-size="9.5" style="fill:var(--accent)" font-weight="600">SSE: event:token ×N → event:final (answer + citations)</text>
+      </svg>
+    </div>
+
+    <figcaption>
+      <strong>What the picture shows:</strong> today, <code>app.py</code> imports and calls
+      <code>Lawglance.conversational()</code> in-process, which rebuilds a LangChain chain on every turn and
+      returns one blocking answer. In the new build, <code>app.py</code> talks to a new <code>api.py</code>
+      FastAPI service over HTTP; the service runs an explicit <code>agent.py</code> LangGraph — a real
+      <code>@tool</code> for retrieval, a reformulation step that only fires when chat history exists (same
+      cost gate as today) — and streams tokens back over SSE as they're generated, with citations arriving in
+      one final event.
+    </figcaption>
+
+    <div class="legend">
+      <span><span class="swatch"></span>always runs</span>
+      <span><span class="swatch dashed"></span>conditional / new component</span>
+      <span><span class="swatch accent"></span>streaming response path</span>
+    </div>
+  </figure>
+
+  <div class="deltas">
+    <div class="delta-row">
+      <span class="tag">NEW HOP</span>
+      <p><code>app.py</code> no longer imports <code>Lawglance</code> directly — it becomes an HTTP client of <code>api.py</code>. That's the one edge every other change hangs off of.</p>
+    </div>
+    <div class="delta-row">
+      <span class="tag">CHAIN → GRAPH</span>
+      <p><code>chains.py</code>'s single LCEL chain, rebuilt every call, becomes <code>agent.py</code>'s compiled <code>StateGraph</code>, built once. Retrieval becomes a named <code>@tool</code>; <code>contextualize</code> keeps today's "only reformulate when history exists" cost gate exactly.</p>
+    </div>
+    <div class="delta-row">
+      <span class="tag">BLOCKING → STREAMED</span>
+      <p>The client used to wait for the whole answer. Now it gets <code>generate</code>'s tokens live over SSE, then one <code>final</code> event carrying the <code>resolve_answer_citations()</code>-checked citation list — same shape as today, just delivered incrementally.</p>
+    </div>
+  </div>
+</main>
