@@ -5,10 +5,9 @@ import base64
 import uuid
 from dotenv import load_dotenv
 
-from lawglance_main import Lawglance
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_chroma import Chroma
-from langchain.schema import HumanMessage
+from backend.retrieval import agent_invoke
+from backend.config import cache as backend_cache
+from langchain_core.messages import HumanMessage
 
 # Set page configuration
 st.set_page_config(page_title="LawGlance", page_icon="logo/logo.png", layout="wide")
@@ -127,22 +126,11 @@ if "thread_id" not in st.session_state:
 
 thread_id = st.session_state.thread_id
 
-# Load OpenAI models
-openai_api_key = os.getenv("OPENAI_API_KEY")
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.9, openai_api_key=openai_api_key)
-embeddings = OpenAIEmbeddings()
-vector_store = Chroma(
-    persist_directory="chroma_db_legal_bot_part1", embedding_function=embeddings
-)
-
-# Create LawGlance instance
-law = Lawglance(llm, embeddings, vector_store)
-
 # Get chat history from backend and display
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-    history = law.get_session_history(thread_id).messages
+    history = backend_cache.get_chat_history(thread_id).messages
     for msg in history:
         role = "user" if isinstance(msg, HumanMessage) else "assistant"
         st.session_state.messages.append({"role": role, "content": msg.content})
@@ -164,16 +152,15 @@ if prompt and prompt.strip():
         st.markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # Invoke LawGlance backend
-    result, updated_history, citations = law.conversational(prompt, thread_id)
+    # Invoke the agentic backend
+    result, citations, thread_id = agent_invoke(prompt, session_id=thread_id)
 
     # Rebuild session messages from updated Redis chat
+    updated_history = backend_cache.get_chat_history(thread_id).messages
     st.session_state.messages = []
     for msg in updated_history:
         role = "user" if isinstance(msg, HumanMessage) else "assistant"
         st.session_state.messages.append({"role": role, "content": msg.content})
-    # A cache hit returns history without the current turn appended, so the last
-    # message is a previous answer — attaching citations by position would misattribute them.
     if st.session_state.messages and st.session_state.messages[-1]["content"] == result:
         st.session_state.messages[-1]["citations"] = citations
 
