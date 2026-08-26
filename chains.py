@@ -1,7 +1,6 @@
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.chains import create_retrieval_chain, create_history_aware_retriever
-from langchain.prompts import ChatPromptTemplate
-from langchain_core.prompts import MessagesPlaceholder, PromptTemplate
+from langchain_classic.chains.combine_documents import create_stuff_documents_chain
+from langchain_classic.chains import create_retrieval_chain, create_history_aware_retriever
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, PromptTemplate
 from langchain_core.runnables import RunnableLambda
 
 from citations import annotate_documents_for_citation

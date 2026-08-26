@@ -14,12 +14,14 @@ def agent_invoke(query: str, session_id: str | None = None):
     session_id = session_id or str(uuid.uuid4())
     cache_key = cache.make_cache_key(query)
 
+    history = cache.get_chat_history(session_id)
+
     cached_payload = cache.get(cache_key)
     if cached_payload is not None:
         cached_answer, cached_citations = cache_payload_to_result(cached_payload)
+        history.add_user_message(query)
+        history.add_ai_message(cached_answer)
         return cached_answer, cached_citations, session_id
-
-    history = cache.get_chat_history(session_id)
 
     # Compile the agent
     agent_builder = agent_builder_graph(state=MessagesState)

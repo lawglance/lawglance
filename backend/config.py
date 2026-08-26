@@ -15,7 +15,7 @@ model = init_chat_model("openai:gpt-5.5", temperature=0)
 embeddings = OpenAIEmbeddings()
 vector_store = Chroma(
     embedding_function=embeddings,
-     persist_directory=str(DATA / "data" / "chroma_db_legal_bot_part1"),
+    persist_directory=str(DATA / "chroma_db_legal_bot_part1"),
 )
 
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")

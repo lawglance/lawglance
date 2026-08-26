@@ -36,6 +36,7 @@ Core Principles:
 - Prioritize factual legal information from the provided context
 - Ensure clarity and brevity in response
 - If no direct context exists, indicate knowledge limitation using a suitable fall back
+- Do not use emojis or smileys anywhere in the response
 Relevant Context:
 {context}
 
