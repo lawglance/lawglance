@@ -1,7 +1,7 @@
 from langchain.messages import HumanMessage
 from backend.state import MessagesState
 from backend.graph import agent_builder_graph
-from backend.config import cache, CACHE_TTL
+from backend.config import cache, CACHE_TTL,memory
 from backend.citation import citations_to_cache_payload, cache_payload_to_result, Citation
 from dotenv import load_dotenv
 from pathlib import Path
@@ -9,6 +9,12 @@ import uuid
 
 
 load_dotenv()
+
+# Build and compile the agent once at import. The checkpointer from
+# backend.config is a module-level singleton, so a single compiled graph
+# serves every thread; the thread_id passed per invoke selects the state.
+agent = agent_builder_graph(state=MessagesState).compile(checkpointer=memory)
+
 
 def agent_invoke(query: str, session_id: str | None = None):
     session_id = session_id or str(uuid.uuid4())
@@ -23,15 +29,11 @@ def agent_invoke(query: str, session_id: str | None = None):
         history.add_ai_message(cached_answer)
         return cached_answer, cached_citations, session_id
 
-    # Compile the agent
-    agent_builder = agent_builder_graph(state=MessagesState)
-    agent = agent_builder.compile()
+    config = {"configurable": {"thread_id": session_id}}
 
-    # Invoke
-    messages = history.messages + [HumanMessage(content=query)]
-    result = agent.invoke({"messages": messages})
-    for m in result["messages"]:
-        m.pretty_print()
+    result = agent.invoke({"messages":
+                            [HumanMessage(content=query)]}, 
+                            config=config)
 
     answer = result["messages"][-1]
     citations = [Citation(**c) for c in answer.additional_kwargs.get("citations", [])]
