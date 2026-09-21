@@ -1,6 +1,7 @@
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain.chat_models import init_chat_model
+from langgraph.checkpoint.memory import MemorySaver
 from dotenv import load_dotenv
 from pathlib import Path
 import os
@@ -21,3 +22,5 @@ vector_store = Chroma(
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 CACHE_TTL = int(os.getenv("CACHE_TTL", "3600"))
 cache = RedisCache(REDIS_URL)
+
+memory = MemorySaver()
